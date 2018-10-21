@@ -35,12 +35,11 @@ We want “Unearthing the Cryosphere” to empower users with the knowledge to j
 
 ## CHALLENGES
 
-learning new software packages and stuff is hard
+We began thinking about our problem and how to solve it by using python, but python had a steep learning curve and we couldn't learn how to use the tools within such a short amount of time. Additionally, the Internet caused delays because so many people were using the bandwidth, and we lost a lot of time trying to download tools.
 
-Data was too big! The original data set we were using, Glaciers,
+Our first challenge was that our data was too big. The API we were using couldn't handle so much data and we had to learn how to filter the data to only use what we needed for our project.
 
-had to trim data down to save memory
-
+This was a small part of our biggest challenge, which was shifting our mindset about how to deal with data. The term "data" is a general term, and we didn't have any experience manipulating such large swaths of data for a very specific purpose. We had to learn about utilizing data efficiently and effectively to produce a working project, and it taught us about data manipulation.
 ## SOURCES
 
 **NASA Resources and Data**
