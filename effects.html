@@ -11,6 +11,15 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css"
+			integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+			crossorigin=""/>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js"
+			integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA=="
+			crossorigin=""></script>
+		<script src="assets/js/leaflet.ajax.js"></script>
+			
 	</head>
 	<body>
 
@@ -50,19 +59,69 @@
 								<p> See the ice become the ice</p>
 								<h2>Cryosphere Locator</h2>
 							</header>
-							<form method="post" action="#">
-									<div class="row uniform">
-										<div class="6u 12u$(xsmall)">
-											<input type="text" name="Location" id="location" value="" placeholder="Location" />
-										</div>
-									</div>
-									
-									<a href="#" class="button special">Submit</a>
+							<form action="#" id="form">
+								<input type="submit" value="Submit">
 							</form>
 							
 					</div>
-					<div class="content 6u" style="float: right; background-color: black;">
-						
+					<div id="map" class="content 6u">
+						<!--this is the map thing-->
+						<script>
+							document.getElementById("form").addEventListener("submit", findNearestGlaciers);
+							
+							var map = L.map('map');
+							L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+									attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+								}).addTo(map);
+		
+							
+							//var geojsonLayer = new L.GeoJSON.AJAX("./assets/data/glims_points.json");       
+							//geojsonLayer.addTo(map);
+							 $.getJSON("/assets/data/glims_points.json",function(data){
+							// add GeoJSON layer to the map once the file is loaded
+							L.geoJson(data).addTo(map);
+							});
+														
+							function getLocation() {
+								if (navigator.geolocation) {
+									navigator.geolocation.getCurrentPosition(showPosition);
+								} else {
+								}
+							}
+							
+							function showPosition(position){
+								if(position == null){
+									var lat = 0;
+									var lon = 0;
+								} else {
+									var lat = position.coords.latitude;
+									var lon = position.coords.longitude;
+								}
+								map.setView([lat, lon], 13);
+
+								L.marker([lat ,lon]).addTo(map)
+									.bindPopup('This is your current location.')
+								.openPopup();
+							}
+							getLocation();
+							
+							function findNearestGlaciers() {
+								//import glaciers data set here
+								//glacier coordinates named glat and glon 
+								
+								//find nearest in loop
+								Math.sqrt((Math.pow((glat-lat), 2) + Math.pow((glon-lon), 2)));
+							}
+							
+							/*
+								ONCE COMPLETE WITH GLACIERS ADD THESE MAP OVERLAYS
+									*SNOW IN US
+									*HAIL IN US
+									*PERMAFROST
+									*TEMPERATURE
+									*SEA ICE
+							*/
+						</script> 
 					</div>
 				</div>
 				</div>

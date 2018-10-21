@@ -33,7 +33,7 @@ snip
 	ol, ul {
 		list-style: none;
 	}
-
+#map { height: 600px; }
 	blockquote, q {
 		quotes: none;
 	}
