@@ -33,7 +33,7 @@ snip
 	ol, ul {
 		list-style: none;
 	}
-#map { height: 600px; }
+
 	blockquote, q {
 		quotes: none;
 	}
@@ -3103,7 +3103,7 @@ snip
 		.wrapper.style3 {
 			background-color: #000;
 			color: #bfbfbf;
-			background-image: url(../../images/bg.jpg);
+			background-image: url(http://nsidc.org/data/glacier_photo/search/images/chhotashigri2014100402.jpg);
 			background-size: cover;
 			background-attachment: fixed;
 			background-position: center;
@@ -3369,7 +3369,7 @@ snip
 				background-color: rgba(0, 0, 0, 0.95);
 				height: 100%;
 				left: 0;
-				opacity: 0.75;
+				opacity: 0.25;
 				position: absolute;
 				top: 0;
 				width: 100%;
@@ -3712,7 +3712,7 @@ snip
 	}
 
 	#header {
-		background: #3473DA; /*colorhere*/
+		background: #b7d7e8; /*colorhere*/
 		color: #a6a6a6;
 		cursor: default;
 		height: 3.25em;
@@ -3882,7 +3882,7 @@ snip
 		-ms-transition: -ms-transform 0.5s ease, box-shadow 0.5s ease, visibility 0.5s;
 		transition: transform 0.5s ease, box-shadow 0.5s ease, visibility 0.5s;
 		-webkit-overflow-scrolling: touch;
-		background: #3473DA;/*colorhere*/
+		background: #b7d7e8;/*colorhere*/
 		box-shadow: none;
 		color: #000;
 		height: 100%;
@@ -4287,7 +4287,7 @@ snip
 
 	#footer {
 		padding: 4rem 0 2rem 0 ;
-		background:#3473DA; /*colorhere*/
+		background:#b7d7e8; /*colorhere*/
 		text-align: center;
 	}
 
