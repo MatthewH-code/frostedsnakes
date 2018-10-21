@@ -1,10 +1,14 @@
-# frostedsnakes
+FrostedSnakes
+====
+
+## HIGH SCHOOL
+
 **__SpaceApps HSV Hackathon. Find your Cryosphere!
 UNEARTHING THE CRYOSPHERE__**
 
 Unearthing the Cryosphere educates the public about the importance of the cryosphere and uses an interactive map to help users    visualize how the cryosphere affects their lives.
 
-**__BACKGROUND__**
+## BACKGROUND
 
 The cryosphere is all of the earth that contains frozen water, though most don’t know much about it. This frozen water is an integral part of the Earth’s climate, and humans have had a hand in hurting it. The melting of ice negatively impacts the water cycle, water supply, permafrost, sea level, and the habitats of polar animals.
 
@@ -12,7 +16,7 @@ In order to help educate the general public on the threat to our cryosphere, our
 
 This could be used to inform a user on the coast how his life could be affected by rising sea levels due to melting ice caps, or how a user in the midwest may have to worry about drought due to rising surface temperatures. The webpage accomplishes all of this by looking through NASA glacier data and finding the closest glacier to your current location. The data is then shown on a map using a JavaScript API called Leaflet.
 
-**__FUTURE OF PROJECT__**
+## FUTURE OF PROJECT
 
 Our webpage is currently capable of displaying data in North America, but our team plans to widen our data pool and expand the features to display a larger area of data in the future. We would want to add map functions that display all main components of the cryosphere:
 
@@ -29,7 +33,7 @@ To improve the storytelling of the map we would want to by add information on th
 
 We want “Unearthing the Cryosphere” to empower users with the knowledge to join the cause and protect our cryosphere before it’s too late.
 
-**__CHALLENGES__**
+## CHALLENGES
 
 learning new software packages and stuff is hard
 
@@ -37,7 +41,7 @@ Data was too big! The original data set we were using, Glaciers,
 
 had to trim data down to save memory
 
-**__SOURCES__**
+## SOURCES
 
 **NASA Resources and Data**
 
