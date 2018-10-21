@@ -11,6 +11,18 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css"
+			integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+			crossorigin=""/>
+		<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+		<script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js"
+			integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA=="
+			crossorigin=""></script>
+		<script src="https://unpkg.com/esri-leaflet@2.2.3/dist/esri-leaflet.js"
+			integrity="sha512-YZ6b5bXRVwipfqul5krehD9qlbJzc6KOGXYsDjU9HHXW2gK57xmWl2gU6nAegiErAqFXhygKIsWPKbjLPXVb2g=="
+			crossorigin=""></script>
+		<script src="assets/js/leaflet-knn.min.js"></script>
+		<script src="https://cdn-webgl.wrld3d.com/wrldjs/dist/latest/wrld.js"></script>
 	</head>
 	<body>
 
@@ -52,42 +64,54 @@
 								<h2>Cryosphere Locator</h2>
 							</header>
 							<form action="#" id="form">
-								<input type="submit" value="Submit">
+								<h3 class="align-center">Get Nearest Location of Perennial Cryosphere Component </h3>
+								<input onclick="javascript:showDiv()" class ="fit special" type="submit" value="Go now!" onclick="showDiv()">
 							</form>
-							
+							<div id="hidden" style="display : none" >
+								<p>The permafrost and snow in Idaho would effect Huntsville, AL by fruit prices rising, temperature level rising, more insects during summer, and northern birds not migrating and affecting our ecosystem. </p>
+								<i class="fa fa-lemon-o" aria-hidden="true"></i><p>Fruit trees will no longer be able to grow because their seeds require prolonged cold to germinate, apple, cherry, plums, pears, apricot, and peach prices would rise all over the country because the germination issues in Idaho. </p>
+								<i class="fa fa-bug" aria-hidden="true"></i><p>The permafrost melting would raise temperature levels all over the USA. This would cause more insect populations during the summer.</p>
+								<i class="fa fa-leaf" aria-hidden="true"></i>
+								<p>The birds that typically migrate into the south during the winter would no longer migrate, this would effect the winter ecosystem of the south.</p>
+							</div>
 					</div>
 					<div id="map" class="content 6u">
 						<!--this is the map thing-->
 						<script>
+							//Run nearestGlacier function on button press
 							document.getElementById("form").addEventListener("submit", findNearestGlaciers);
-							
-							var map = L.map('map');
-							L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-									attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-								}).addTo(map);
-		
-							
-							//var geojsonLayer = new L.GeoJSON.AJAX("./assets/data/glims_points.json");       
-							//geojsonLayer.addTo(map);
-							 $.getJSON("/assets/data/glims_points.json",function(data){
-							// add GeoJSON layer to the map once the file is loaded
-							L.geoJson(data).addTo(map);
-							});
-														
-							function getLocation() {
+							//Request location access
+							document.addEventListener('DOMContentLoaded', function() {
 								if (navigator.geolocation) {
 									navigator.geolocation.getCurrentPosition(showPosition);
 								} else {
 								}
-							}
+							}, false);
+							var lat = 0;
+							var lon = 0;
+							var count = 0;
+							var previous = null;
+							var gj = new L.geoJson();
+							//Make the 3D map
+							var map = L.Wrld.map('map',"80de89d90b9f2d9cffa33e189639d71d", {
+								});
+		
+							//Add GLIM Glacier data
+							$.getJSON("/assets/data/glims_points.json",function(data){
+							// add GeoJSON layer to the map once the file is loaded
+							gj.addData(data);
+							});
 							
+							gj.addTo(map);
+														
+							//Move to current real life position
 							function showPosition(position){
 								if(position == null){
-									var lat = 0;
-									var lon = 0;
+									lat = 0;
+									lon = 0;
 								} else {
-									var lat = position.coords.latitude;
-									var lon = position.coords.longitude;
+									lat = position.coords.latitude;
+									lon = position.coords.longitude;
 								}
 								map.setView([lat, lon], 13);
 
@@ -95,14 +119,27 @@
 									.bindPopup('This is your current location.')
 								.openPopup();
 							}
-							getLocation();
 							
+							//Finds the glacier nearest to your current position
 							function findNearestGlaciers() {
-								//import glaciers data set here
-								//glacier coordinates named glat and glon 
-								
-								//find nearest in loop
-								Math.sqrt((Math.pow((glat-lat), 2) + Math.pow((glon-lon), 2)));
+							console.log("we love space apps")
+								var allnearest = leafletKnn(gj).nearest([lon, lat]);
+								nearest = allnearest.find(function (element) {
+									if (!previous){
+										return true;
+									}
+									return previous.lat != element.lat && previous.lon != element.lon;
+								});
+								previous  = nearest;
+								lat = nearest.lat;
+								lon = nearest.lon;
+								map.setView([lat, lon], 10);
+							}
+							
+							//Un-hide info div
+							function showDiv() {
+								div = document.getElementById('hidden');
+								div.style.display = "block";
 							}
 							
 							/*
